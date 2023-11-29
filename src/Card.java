@@ -5,7 +5,7 @@ public class Card
     private int value;
     private String rank;
 
-    public Card(String suit, int value, String rank )
+    public Card(String rank, String suit, int value)
     {
         this.suit = suit;
         this.value = value;
@@ -41,6 +41,11 @@ public class Card
     public void setRank(String newRank)
     {
         rank = newRank;
+    }
+
+    public String toString()
+    {
+        return rank + " of " + suit;
     }
 }
 
