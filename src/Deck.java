@@ -36,21 +36,30 @@ public class Deck
 
     public Card deal()
     {
-
+        if (cards.isEmpty())
+        {
+            return null;
+        }
+        cardsLeft--;
+        return cards.get(cardsLeft + 1);
     }
 
     public void shuffle()
     {
-        Card inbetween;
+        Card inBetween;
         for (int i = cards.size() - 1; i > 0; i--)
         {
             int randNum = (int) ((Math.random() * i) + 1);
-            inbetween = cards.get(i);
+            inBetween = cards.get(i);
             cards.set(i, cards.get(randNum));
-            cards.set(randNum, inbetween);
+            cards.set(randNum, inBetween);
         }
     }
 
+    public ArrayList<Card> getCards()
+    {
+        return this.cards;
+    }
     //basic deck constructor
     public Deck ()
     {
@@ -100,8 +109,5 @@ public class Deck
         this.cards.add(new Card("King","Heart", 10));
         this.cards.add(new Card("Ace","Heart", 11));
     }
-    public ArrayList<Card> getCards()
-    {
-        return this.cards;
-    }
+
 }
