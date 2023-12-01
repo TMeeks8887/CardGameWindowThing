@@ -20,6 +20,11 @@ public class Deck
         cardsLeft = cards.size();
     }
 
+    public ArrayList<Card> getArrList()
+    {
+        return cards;
+    }
+
     public boolean isEmpty()
     {
         if(cardsLeft == 0)
@@ -46,13 +51,13 @@ public class Deck
 
     public void shuffle()
     {
-        Card inBetween;
+        Card placeHolder;
         for (int i = cards.size() - 1; i > 0; i--)
         {
             int randNum = (int) ((Math.random() * i) + 1);
-            inBetween = cards.get(i);
+            placeHolder = cards.get(i);
             cards.set(i, cards.get(randNum));
-            cards.set(randNum, inBetween);
+            cards.set(randNum, placeHolder);
         }
     }
 

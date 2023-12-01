@@ -2,15 +2,21 @@ import java.util.ArrayList;
 
 public class Player {
 
-    private ArrayList<Card> hand = new ArrayList<>();
-    private int points = 0;
+    private ArrayList<Card> hand;
+    private int points;
     private String name;
 
-    public Player(String name, ArrayList<Card> cards, int points)
+    public Player(String name, ArrayList<Card> cards)
     {
         this.name = name;
-        points = 0;
+        this.points = 0;
         this.hand = new ArrayList<>();
+    }
+
+    public Player(String name)
+    {
+        this.name = name;
+        this.points = 0;
     }
 
     public ArrayList<Card> getCards()
@@ -33,14 +39,14 @@ public class Player {
         points = points + addPoints;
     }
 
-//    to-do
-//    public void addCard(Card newCard)
-//    {
-//
-//    }
+
+    public void addCard(Card newCard)
+    {
+        hand.add(newCard);
+    }
 
     public String toString()
     {
-        return name + " has " + points + " points " + " /n " + name + "'s cards: " + hand;
+        return name + " has " + points + " points " + " \n" + name + "'s cards: " + hand;
     }
 }
