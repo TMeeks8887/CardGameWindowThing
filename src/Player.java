@@ -10,13 +10,14 @@ public class Player {
     {
         this.name = name;
         this.points = 0;
-        this.hand = new ArrayList<>();
+        this.hand = cards;
     }
 
     public Player(String name)
     {
         this.name = name;
         this.points = 0;
+        this.hand = new ArrayList<Card>();
     }
 
     public ArrayList<Card> getCards()
@@ -36,14 +37,15 @@ public class Player {
 
     public void addPoints(int addPoints)
     {
-        points = points + addPoints;
+        this.points = points + addPoints;
     }
-
 
     public void addCard(Card newCard)
     {
         hand.add(newCard);
     }
+
+
 
     public String toString()
     {
