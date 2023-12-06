@@ -49,6 +49,6 @@ public class Player {
 
     public String toString()
     {
-        return name + " has " + points + " points " + " \n" + name + "'s cards: " + hand;
+        return "\n" + name + " has " + points + " points " + " \n" + name + "'s cards: " + hand + "\n";
     }
 }

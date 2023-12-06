@@ -1,3 +1,6 @@
+//Teddy Meeks
+//December 7th
+
 import java.util.Scanner;
 import java.util.ArrayList;
 public class Game {
@@ -9,6 +12,7 @@ public class Game {
 
     public Game()
     {
+        printInstructions();
         deck = new Deck();
         players = new ArrayList<Player>();
         String Ranks[] = {"2", "3", "4"};
@@ -17,14 +21,18 @@ public class Game {
         Deck wholeDeck = new Deck(Ranks, Suits, Values);
         System.out.println("How many players?");
         int numPlayers = s.nextInt();
+        System.out.print("");
+        String name = s.nextLine();
 
         for (int i = 0; i < numPlayers; i++)
         {
             System.out.println("Enter name: ");
-            String name = s.nextLine();
+            name = s.nextLine();
             //want to add the players to an arraylist to be called on later
             players.add(new Player(name));
         }
+        System.out.println("The players, their points, and their cards are:");
+        System.out.println(players);
     }
 
     public void printInstructions()
@@ -36,16 +44,9 @@ public class Game {
         System.out.println("The person closest to 21 wins!");
     }
 
-    public void GameRun()
-    {
-        printInstructions();
-        new Game();
-    }
-
     public static void main(String[] args)
     {
         Game game = new Game();
-        game.GameRun();
     }
 
 //    public void startingHand(Player name)
