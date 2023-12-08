@@ -45,6 +45,14 @@ public class Player {
         hand.add(newCard);
     }
 
+    public void removeCards(Player name)
+    {
+        while (hand.size() > 0)
+        {
+            hand.remove(0);
+        }
+    }
+
 
 
     public String toString()

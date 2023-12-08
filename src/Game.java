@@ -10,6 +10,7 @@ public class Game {
     private int numPlayers;
     private Deck wholeDeck;
     private String hit;
+    private boolean playing = true;
 
     public Game()
     {
@@ -59,6 +60,9 @@ public class Game {
         {
             name.addCard(wholeDeck.deal());
             System.out.println(name.getCards());
+            if (checkIf21(name) == true) {
+                return;
+            }
             askIfHit(name);
         }
     }
@@ -77,12 +81,53 @@ public class Game {
         System.out.println(players);
     }
 
-    public void checkIf21(Player name)
+    public int getHandValue(Player name)
     {
-        if (name.getPoints() > 21)
+        int value = 0;
+        for(int i = 0; i < name.getCards().size(); i++)
+        {
+            value += name.getCards().get(i).getValue();
+        }
+        return value;
+    }
+
+    public boolean checkIf21(Player name)
+    {
+        int value = getHandValue(name);
+        if (value > 21)
         {
             System.out.println("You busted!");
+            return true;
         }
+        return false;
+    }
+
+    public void getWinner(ArrayList<Player> players)
+    {
+        int winnerPoints = 0;
+        ArrayList<String> winnerName = new ArrayList<String>();
+        for (int i = 0; i < numPlayers + 1; i++)
+        {
+            if (getHandValue(players.get(i)) > winnerPoints && getHandValue(players.get(i)) <= 21)
+            {
+                winnerPoints = getHandValue(players.get(i));
+            }
+        }
+        for (int i = 0; i < numPlayers + 1; i++)
+        {
+            if (getHandValue(players.get(i)) == winnerPoints)
+            {
+                winnerName.add(players.get(i).getName());
+                players.get(i).addPoints(1);
+            }
+        }
+
+        System.out.println("The winner is " + winnerName);
+    }
+
+    public void resetHands(Player name)
+    {
+        name.removeCards(name);
     }
 
     public  void playGame()
@@ -91,17 +136,27 @@ public class Game {
         makeDealer();
         activePlayers();
         wholeDeck.shuffle();
-        // goes through each player to add cards to
-        for (int i = 0; i < numPlayers + 1; i++)
+        while (playing = true)
         {
-            startingHand(players.get(i));
+            // goes through each player to add cards to
+            for (int i = 0; i < numPlayers + 1; i++)
+            {
+                startingHand(players.get(i));
+            }
+            printPlayers();
+            for (int i = 0; i < numPlayers + 1; i++)
+            {
+                askIfHit(players.get(i));
+            }
+            getWinner(players);
+
+            System.out.println("Do you still want to play? (True =  yes/False = no)");
+            playing = Boolean.parseBoolean(s.nextLine());
+            for (int i = 0; i < numPlayers; i++)
+            {
+                resetHands(players.get(i));
+            }
         }
-        printPlayers();
-        for (int i = 0; i < numPlayers + 1; i++)
-        {
-            askIfHit(players.get(i));
-        }
-        printPlayers();
     }
 
     public static void main(String[] args)
