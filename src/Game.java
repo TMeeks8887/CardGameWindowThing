@@ -6,11 +6,11 @@ import java.util.Scanner;
 import java.util.ArrayList;
 public class Game {
 
-    //Creating a scanner to get imput from user
+    //Creating a scanner to get input from user
     Scanner s = new Scanner(System.in);
     //Create an arrayList of players to add the players into
     private ArrayList<Player> players;
-    //Defining the amount of players so it can keep prompting until an appropriate amount is put in
+    //Defining the amount of players, so it can keep prompting until an appropriate amount is put in
     private int numPlayers = 0;
     //Create a deck instance variable
     private Deck wholeDeck;
@@ -108,7 +108,7 @@ public class Game {
         }
     }
 
-    //Prints the arraylist of players to show everyones cards
+    //Prints the arraylist of players to show everyone's cards
     public void printPlayers()
     {
         System.out.println("The players, their points, and their cards are:");

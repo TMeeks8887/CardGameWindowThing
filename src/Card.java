@@ -6,7 +6,7 @@ public class Card
     private int value;
     private String rank;
 
-    //Consturctor for the cards
+    //Constructor for the cards
     public Card(String rank, String suit, int value)
     {
         this.suit = suit;
