@@ -55,7 +55,7 @@ public class Game {
         for (int i = 0; i < numPlayers; i++)
         {
             System.out.println("Enter name: ");
-            name = s.nextLine();
+            name = s.nextLine(); // Read the player's name
             // Want to add the players to an arraylist to be called on later
             players.add(new Player(name));
         }
@@ -143,17 +143,7 @@ public class Game {
         }
         return value;
     }
-    public ArrayList<Image> getCardPhoto(Player name)
-    {
-        ArrayList<Image> photos = new ArrayList<Image>();
-        Image cardImage;
-        for(int i = 0; i < name.getCards().size(); i++)
-        {
-            cardImage = name.getCards().get(i).getImageJ();
-            photos.add(cardImage);
-        }
-        return photos;
-    }
+
 
     // Checks if the players hand has a value greater than 21, if they do then it prints they busted and returns true
     public boolean checkIf21(Player name)

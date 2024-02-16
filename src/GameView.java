@@ -76,19 +76,22 @@ public class GameView extends JFrame
         g.setColor(Color.BLACK);
         g.drawString("Dealer ", DEALER_X_VAL, Y_OFFSET);
     }
-    public void drawCards(Graphics g)
-    {
+    public void drawCards(Graphics g) {
         int numPlayers = ref.getNumPlayers();
         ArrayList<Player> players = ref.getPlayers();
-        ArrayList<Image> cards;
-        for (int i = 0; i < numPlayers + 1; i++)
-        {
-            cards = ref.getCardPhoto(players.get(i));
-            for (int j = 0; j < 2; j++)
-            {
-                g.drawImage(cards.get(j),
-                        X_OFFSET + j * 20, Y_OFFSET + 20 + i * (HEIGHT - Y_OFFSET) /numPlayers,
-                        this);
+
+        // Iterate over each player
+        for (int i = 0; i < numPlayers; i++) {
+            ArrayList<Image> cardImages = players.get(i).getCardImages();
+
+                // Draw each card image for the current player
+                for (int j = 0; j < cardImages.size(); j++) {
+                    // Adjust the X and Y offsets to position the cards properly on the screen
+                    int cardX = X_OFFSET + j * 20;
+                    int cardY = Y_OFFSET + 20 + i * (HEIGHT - Y_OFFSET) / numPlayers;
+
+                    // Draw the card image
+                    g.drawImage(cardImages.get(j), cardX, cardY, this);
             }
         }
     }
@@ -125,11 +128,6 @@ public class GameView extends JFrame
         {
             drawNames(g);
             drawDealer(g);
-        }
-
-        // Draw the cards when state is 3
-        else
-        {
             drawCards(g);
         }
     }

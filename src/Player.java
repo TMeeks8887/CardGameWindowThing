@@ -1,5 +1,6 @@
 import java.util.ArrayList;
-
+import javax.swing.*;
+import java.awt.*;
 public class Player {
 
     // ArrayList of cards which gets used for each player to represent their hand
@@ -45,6 +46,13 @@ public class Player {
         return name;
     }
 
+    public ArrayList<Image> getCardImages() {
+        ArrayList<Image> cardImages = new ArrayList<>();
+        for (Card card : hand) {
+            cardImages.add(card.getImageJ());
+        }
+        return cardImages;
+    }
 
     // Adds a point to the player that wins
     public void addPoints(int addPoints)
