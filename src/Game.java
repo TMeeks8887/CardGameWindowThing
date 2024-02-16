@@ -36,8 +36,23 @@ public class Game {
         this.window = new GameView(this);
     }
 
-    public ArrayList<Player> getPlayers() {
+    public ArrayList<Player> getPlayers()
+    {
         return players;
+    }
+    public ArrayList<Image> getCardImages(int index)
+    {
+        ArrayList<Image> playerCardImages = new ArrayList<>();
+        for (int i = 0; i < 2; i++)
+        {
+            playerCardImages.add(players.get(index).getCards().get(i).getImageJ());
+        }
+        return playerCardImages;
+    }
+
+    public String getPlayerName(int index)
+    {
+        return players.get(index).getName();
     }
 
     // Gets the amount of players and goes through adding each to the arraylist
@@ -71,9 +86,6 @@ public class Game {
         return numPlayers;
     }
 
-    public String getPlayerName(int index) {
-        return players.get(index).getName();
-    }
     // Prints the instructions
     public void printInstructions()
     {
@@ -216,22 +228,29 @@ public class Game {
     // Plays the game
     public  void playGame()
     {
+        // Game States 0 and 1
         for (int i = 0; i < 2; i++)
         {
             goThroughGameState();
         }
 
+        // Game state 2
         window.repaint();
         activePlayersHowMany();
         String blank = s.nextLine();
         gameState++;
 
+        // Game state 3
         window.repaint();
 
         activePlayersEnterName();
         makeDealer();
+
         gameState++;
+        // Game State 4
         window.repaint();
+
+        gameState++;
         // Checking if they still want to continue
         while (playing.equals("yes") || playing.equals("Yes") || playing.equals("y") || playing.equals("Y"))
         {
@@ -244,6 +263,7 @@ public class Game {
                 // Can get 2 aces, so have to check if they start with 22
                 checkIf21(players.get(i));
             }
+            window.repaint();
             printPlayers();
             // Goes through each player to check if they want to hit
             for (int i = 0; i < numPlayers + 1; i++)

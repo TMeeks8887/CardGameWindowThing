@@ -10,7 +10,9 @@ public class GameView extends JFrame
             HEIGHT = 600,
             Y_OFFSET = 42,
             X_OFFSET = 20,
-            DEALER_X_VAL = 400;
+            DEALER_X_VAL = 400,
+            NEW_HEIGHT = 30,
+            NEW_WIDTH = 20;
 
     private Game ref;
     public GameView(Game ref)
@@ -81,17 +83,21 @@ public class GameView extends JFrame
         ArrayList<Player> players = ref.getPlayers();
 
         // Iterate over each player
-        for (int i = 0; i < numPlayers; i++) {
-            ArrayList<Image> cardImages = players.get(i).getCardImages();
-
+        for (int i = 0; i < numPlayers; i++)
+        {
+            ArrayList<Image> cardImages = ref.getCardImages(i);
                 // Draw each card image for the current player
-                for (int j = 0; j < cardImages.size(); j++) {
-                    // Adjust the X and Y offsets to position the cards properly on the screen
-                    int cardX = X_OFFSET + j * 20;
-                    int cardY = Y_OFFSET + 20 + i * (HEIGHT - Y_OFFSET) / numPlayers;
+            for (int j = 0; j < 2; j++)
+            {
+                Image originalImage = cardImages.get(j);
+                // Resize the card image using getScaledInstance
+                // Image resizedImage = originalImage.getScaledInstance(NEW_WIDTH, NEW_HEIGHT, java.awt.Image.SCALE_SMOOTH);
 
-                    // Draw the card image
-                    g.drawImage(cardImages.get(j), cardX, cardY, this);
+                // Adjust the X and Y offsets to position the cards properly on the screen
+                int cardX = X_OFFSET + j * 20;
+                int cardY = Y_OFFSET + 20 + i * (HEIGHT - Y_OFFSET) / numPlayers;
+                // Draw the card image
+                g.drawImage(originalImage, cardX, cardY, this);
             }
         }
     }
@@ -125,6 +131,11 @@ public class GameView extends JFrame
 
         // Draws the player names
         if (ref.getGameState() == 4)
+        {
+            drawNames(g);
+            drawDealer(g);
+        }
+        if (ref.getGameState() == 5)
         {
             drawNames(g);
             drawDealer(g);
