@@ -32,6 +32,7 @@ public class Player {
         return hand;
     }
 
+
     // Gets the points that a player has, says it's needed on the sheet, but I use the toString to print the points
     public int getPoints()
     {
@@ -43,6 +44,7 @@ public class Player {
     {
         return name;
     }
+
 
     // Adds a point to the player that wins
     public void addPoints(int addPoints)

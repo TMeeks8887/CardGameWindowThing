@@ -7,7 +7,7 @@ public class Deck
 
     // Instance variables of deck and cards left
     private ArrayList<Card> cards;
-    private static int cardsLeft;
+    private int cardsLeft;
     private Image imageJ;
 
 

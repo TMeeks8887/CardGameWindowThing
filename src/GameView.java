@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class GameView extends JFrame
 {
@@ -7,9 +8,9 @@ public class GameView extends JFrame
     public static final int
             WIDTH = 600,
             HEIGHT = 600,
-            Y_OFFSET = 22,
-            X_OFFSET = 75,
-            LINE_BREAK = 75;
+            Y_OFFSET = 42,
+            X_OFFSET = 20,
+            DEALER_X_VAL = 400;
 
     private Game ref;
     public GameView(Game ref)
@@ -31,30 +32,64 @@ public class GameView extends JFrame
     {
         g.setColor(Color.BLACK);
 
-        g.drawString("Hello! ", X_OFFSET + 20, Y_OFFSET - 20);
-        g.drawString("Thank you for playing BlackJack! ", X_OFFSET + 40, Y_OFFSET - 20);
+        g.drawString("Hello! ", X_OFFSET + 20, Y_OFFSET + 20);
+        g.drawString("Thank you for playing BlackJack! ", X_OFFSET + 20, Y_OFFSET + 40);
     }
 
     public void drawRules(Graphics g)
     {
         g.setColor(Color.BLACK);
 
-        g.drawString("Rules: ", X_OFFSET + 20, Y_OFFSET - 20);
-        g.drawString("Try to get as close to 21 without hitting it as you can", X_OFFSET + 20 + LINE_BREAK, Y_OFFSET - 20);
-        g.drawString("Each card's value is it's number, face cards are 10, and Ace is 11", X_OFFSET + 20 + LINE_BREAK * 2, Y_OFFSET - 20);
-        g.drawString("Person playing as dealer should only hit if they have 16 or below", X_OFFSET + 20 + LINE_BREAK * 3, Y_OFFSET - 20);
-        g.drawString("The person closest to 21 wins!", X_OFFSET + 20 + LINE_BREAK * 4, Y_OFFSET - 20);
-        g.drawString("If there are multiple people that are the closest, there are multiple winners", X_OFFSET + 20 + LINE_BREAK * 5, Y_OFFSET - 20);
-        g.drawString("Each time you win a round you gain 1 point", X_OFFSET + 20 + LINE_BREAK * 6, Y_OFFSET - 20);
-        g.drawString("The person with the most points once you decide to end wins the whole thing.", X_OFFSET + 20 + LINE_BREAK * 7, Y_OFFSET - 20);
+        g.drawString("Rules: ", X_OFFSET + 20, Y_OFFSET + 20);
+        g.drawString("Try to get as close to 21 without hitting it as you can", X_OFFSET + 20, Y_OFFSET + 40);
+        g.drawString("Each card's value is it's number, face cards are 10, and Ace is 11", X_OFFSET + 20, Y_OFFSET + 60);
+        g.drawString("Person playing as dealer should only hit if they have 16 or below", X_OFFSET + 20, Y_OFFSET + 80);
+        g.drawString("The person closest to 21 wins!", X_OFFSET + 20, Y_OFFSET + 100);
+        g.drawString("If there are multiple people that are the closest, there are multiple winners", X_OFFSET + 20, Y_OFFSET + 120);
+        g.drawString("Each time you win a round you gain 1 point", X_OFFSET + 20, Y_OFFSET + 140);
+        g.drawString("The person with the most points once you decide to end wins the whole thing.", X_OFFSET + 20, Y_OFFSET + 160);
+    }
+
+    public void drawGetNumPlayers(Graphics g)
+    {
+        g.setColor(Color.BLACK);
+
+        g.drawString("How many players? ", X_OFFSET + 20, Y_OFFSET + 20);
+    }
+    public void drawGetNames(Graphics g)
+    {
+        g.setColor(Color.BLACK);
+
+        g.drawString("Enter Name: ", X_OFFSET + 20, Y_OFFSET + 20);
     }
     public void drawNames(Graphics g)
     {
         g.setColor(Color.BLACK);
-
+        int numPlayers = ref.getNumPlayers();
         for (int i = 0; i < numPlayers; i++)
         {
-            g.drawString("(i Name)", X_OFFSET + 20 + i * WIDTH/numPlayers, Y_OFFSET - 20);
+            g.drawString("Player " + ref.getPlayerName(i), X_OFFSET, Y_OFFSET  + i * (HEIGHT - Y_OFFSET) / numPlayers);
+        }
+    }
+    public void drawDealer(Graphics g)
+    {
+        g.setColor(Color.BLACK);
+        g.drawString("Dealer ", DEALER_X_VAL, Y_OFFSET);
+    }
+    public void drawCards(Graphics g)
+    {
+        int numPlayers = ref.getNumPlayers();
+        ArrayList<Player> players = ref.getPlayers();
+        ArrayList<Image> cards;
+        for (int i = 0; i < numPlayers + 1; i++)
+        {
+            cards = ref.getCardPhoto(players.get(i));
+            for (int j = 0; j < 2; j++)
+            {
+                g.drawImage(cards.get(j),
+                        X_OFFSET + j * 20, Y_OFFSET + 20 + i * (HEIGHT - Y_OFFSET) /numPlayers,
+                        this);
+            }
         }
     }
     public void paint(Graphics g)
@@ -75,17 +110,27 @@ public class GameView extends JFrame
             drawRules(g);
         }
 
-
-        // Draws the player names
         if (ref.getGameState() == 2)
         {
+            drawGetNumPlayers(g);
+        }
+
+        if (ref.getGameState() == 3)
+        {
+            drawGetNames(g);
+        }
+
+        // Draws the player names
+        if (ref.getGameState() == 4)
+        {
             drawNames(g);
+            drawDealer(g);
         }
 
         // Draw the cards when state is 3
         else
         {
-
+            drawCards(g);
         }
     }
 }

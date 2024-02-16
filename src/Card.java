@@ -51,6 +51,14 @@ public class Card
         rank = newRank;
     }
 
+    public Image getImageJ() {
+        return imageJ;
+    }
+
+    public void setImageJ(Image imageJ) {
+        this.imageJ = imageJ;
+    }
+
     // A toString which returns the card as rank + of + suit
     public String toString()
     {

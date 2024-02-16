@@ -4,6 +4,7 @@
 // Importing scanner and arrayList
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.awt.*;
 public class Game {
 
     // Creating a scanner to get input from user
@@ -35,18 +36,22 @@ public class Game {
         this.window = new GameView(this);
     }
 
+    public ArrayList<Player> getPlayers() {
+        return players;
+    }
+
     // Gets the amount of players and goes through adding each to the arraylist
-    public void activePlayers()
+    public void activePlayersHowMany()
     {
         // Traditional blackjack has less than 8 players
-        while (numPlayers < 1 || numPlayers > 7)
-        {
+        while (numPlayers < 1 || numPlayers > 7) {
             System.out.println("How many players?");
             numPlayers = s.nextInt();
         }
-        System.out.print("");
-        String name = s.nextLine();
-
+    }
+    public void activePlayersEnterName()
+    {
+        String name;
         for (int i = 0; i < numPlayers; i++)
         {
             System.out.println("Enter name: ");
@@ -62,6 +67,13 @@ public class Game {
         players.add(new Player("dealer"));
     }
 
+    public int getNumPlayers() {
+        return numPlayers;
+    }
+
+    public String getPlayerName(int index) {
+        return players.get(index).getName();
+    }
     // Prints the instructions
     public void printInstructions()
     {
@@ -131,6 +143,17 @@ public class Game {
         }
         return value;
     }
+    public ArrayList<Image> getCardPhoto(Player name)
+    {
+        ArrayList<Image> photos = new ArrayList<Image>();
+        Image cardImage;
+        for(int i = 0; i < name.getCards().size(); i++)
+        {
+            cardImage = name.getCards().get(i).getImageJ();
+            photos.add(cardImage);
+        }
+        return photos;
+    }
 
     // Checks if the players hand has a value greater than 21, if they do then it prints they busted and returns true
     public boolean checkIf21(Player name)
@@ -186,12 +209,39 @@ public class Game {
         wholeDeck = new Deck(Ranks, Suits, Values);
     }
 
+    public void nextGameState()
+    {
+        System.out.println("Done with this screen? (yes/y)");
+        String answer = s.nextLine();
+        if (answer.equals("yes") || answer.equals("y"))
+        {
+            gameState++;
+        }
+    }
+    public void goThroughGameState()
+    {
+        window.repaint();
+        nextGameState();
+    }
     // Plays the game
     public  void playGame()
     {
-        printInstructions();
-        activePlayers();
+        for (int i = 0; i < 2; i++)
+        {
+            goThroughGameState();
+        }
+
+        window.repaint();
+        activePlayersHowMany();
+        String blank = s.nextLine();
+        gameState++;
+
+        window.repaint();
+
+        activePlayersEnterName();
         makeDealer();
+        gameState++;
+        window.repaint();
         // Checking if they still want to continue
         while (playing.equals("yes") || playing.equals("Yes") || playing.equals("y") || playing.equals("Y"))
         {
