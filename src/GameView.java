@@ -58,7 +58,7 @@ public class GameView extends JFrame
     {
         g.setColor(Color.BLACK);
 
-        g.drawString("How many players? ", X_OFFSET + 20, Y_OFFSET + 20);
+        g.drawString("How many players? (1-7)", X_OFFSET + 20, Y_OFFSET + 20);
     }
     public void drawGetNames(Graphics g)
     {
@@ -99,18 +99,28 @@ public class GameView extends JFrame
                 // Draw the card image
                 g.drawImage(originalImage, cardX, cardY, NEW_WIDTH, NEW_HEIGHT, this);
             }
-            for (int j = 0; j < players.get(i).getCards().size(); j++)
-            {
-                Image originalImage = cardImages.get(j);
-                int cardX = DEALER_X_VAL + j * 40;
-                int cardY = Y_OFFSET + 5;
-                g.drawImage(originalImage, cardX, cardY, NEW_WIDTH, NEW_HEIGHT, this);
-            }
+        }
+        // For the Dealer since it's in a different location
+        ArrayList<Image> cardImages = ref.getCardImages(numPlayers);
+        for (int j = 0; j < players.get(numPlayers).getCards().size(); j++)
+        {
+            Image originalImage = cardImages.get(j);
+            int cardX = DEALER_X_VAL + j * 40;
+            int cardY = Y_OFFSET + 5;
+            g.drawImage(originalImage, cardX, cardY, NEW_WIDTH, NEW_HEIGHT, this);
         }
     }
-    public void drawDealtCard(Graphics g)
+    public void drawNamesDealerCard(Graphics g)
     {
+        drawNames(g);
+        drawDealer(g);
+        drawCards(g);
+    }
+    public void drawPlayAgain(Graphics g)
+    {
+        g.setColor(Color.BLACK);
 
+        g.drawString("Do you still want to play? ", X_OFFSET + 20, Y_OFFSET + 20);
     }
     public void paint(Graphics g)
     {
@@ -122,8 +132,6 @@ public class GameView extends JFrame
         {
             drawWelcome(g);
         }
-
-
         // Prints the rules
         if (ref.getGameState() == 1)
         {
@@ -139,23 +147,14 @@ public class GameView extends JFrame
         {
             drawGetNames(g);
         }
-
         // Draws the player names
         if (ref.getGameState() == 4)
         {
-            drawNames(g);
-            drawDealer(g);
-            drawCards(g);
+            drawNamesDealerCard(g);
         }
         if (ref.getGameState() == 5)
         {
-            drawNames(g);
-            drawDealer(g);
-            drawCards(g);
-        }
-        if (ref.getGameState() == 6)
-        {
-            drawDealtCard(g);
+            drawPlayAgain(g);
         }
     }
 }

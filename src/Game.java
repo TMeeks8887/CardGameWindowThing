@@ -43,7 +43,7 @@ public class Game {
     public ArrayList<Image> getCardImages(int index)
     {
         ArrayList<Image> playerCardImages = new ArrayList<>();
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < players.get(index).getCards().size(); i++)
         {
             playerCardImages.add(players.get(index).getCards().get(i).getImageJ());
         }
@@ -248,10 +248,10 @@ public class Game {
         makeDealer();
 
         gameState++;
-        // Game State 4
+        // Game state 4
         window.repaint();
 
-        gameState++;
+
         // Checking if they still want to continue
         while (playing.equals("yes") || playing.equals("Yes") || playing.equals("y") || playing.equals("Y"))
         {
@@ -264,7 +264,9 @@ public class Game {
                 // Can get 2 aces, so have to check if they start with 22
                 checkIf21(players.get(i));
             }
-            window.repaint();
+//            window.repaint();
+            // Game state 5
+            gameState++;
             printPlayers();
             // Goes through each player to check if they want to hit
             for (int i = 0; i < numPlayers + 1; i++)
@@ -274,6 +276,9 @@ public class Game {
             // Gets winner(s)
             getWinner(players);
             // Checks if they want to keep playing, if they type something other than yes/Yes/y/Y then it ends the game
+            window.repaint();
+            // Game state 4
+            gameState--;
             System.out.println("Do you still want to play?");
             playing = s.nextLine();
             // Goes through each player resetting their hand
