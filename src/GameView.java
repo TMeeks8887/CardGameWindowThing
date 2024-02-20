@@ -10,15 +10,17 @@ public class GameView extends JFrame
             HEIGHT = 600,
             Y_OFFSET = 42,
             X_OFFSET = 20,
-            DEALER_X_VAL = 400,
-            NEW_HEIGHT = 30,
-            NEW_WIDTH = 20;
+            DEALER_X_VAL = 320,
+            NEW_HEIGHT = 60,
+            NEW_WIDTH = 40;
 
     private Game ref;
     public GameView(Game ref)
     {
+        // Backend passed in
         this.ref = ref;
 
+        // Constructs the window
         this.setTitle(TITLE);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(WIDTH, HEIGHT);
@@ -81,25 +83,34 @@ public class GameView extends JFrame
     public void drawCards(Graphics g) {
         int numPlayers = ref.getNumPlayers();
         ArrayList<Player> players = ref.getPlayers();
-
         // Iterate over each player
-        for (int i = 0; i < numPlayers; i++)
+        for (int i = 0; i < numPlayers + 1; i++)
         {
+//            ArrayList<Player> players = ref.getPlayers();
             ArrayList<Image> cardImages = ref.getCardImages(i);
                 // Draw each card image for the current player
-            for (int j = 0; j < 2; j++)
+            for (int j = 0; j < players.get(i).getCards().size() ; j++)
             {
                 Image originalImage = cardImages.get(j);
-                // Resize the card image using getScaledInstance
-                // Image resizedImage = originalImage.getScaledInstance(NEW_WIDTH, NEW_HEIGHT, java.awt.Image.SCALE_SMOOTH);
 
                 // Adjust the X and Y offsets to position the cards properly on the screen
-                int cardX = X_OFFSET + j * 20;
-                int cardY = Y_OFFSET + 20 + i * (HEIGHT - Y_OFFSET) / numPlayers;
+                int cardX = X_OFFSET + j * 40;
+                int cardY = Y_OFFSET + 5 + i * (HEIGHT - Y_OFFSET) / numPlayers;
                 // Draw the card image
-                g.drawImage(originalImage, cardX, cardY, this);
+                g.drawImage(originalImage, cardX, cardY, NEW_WIDTH, NEW_HEIGHT, this);
+            }
+            for (int j = 0; j < players.get(i).getCards().size(); j++)
+            {
+                Image originalImage = cardImages.get(j);
+                int cardX = DEALER_X_VAL + j * 40;
+                int cardY = Y_OFFSET + 5;
+                g.drawImage(originalImage, cardX, cardY, NEW_WIDTH, NEW_HEIGHT, this);
             }
         }
+    }
+    public void drawDealtCard(Graphics g)
+    {
+
     }
     public void paint(Graphics g)
     {
@@ -134,12 +145,17 @@ public class GameView extends JFrame
         {
             drawNames(g);
             drawDealer(g);
+            drawCards(g);
         }
         if (ref.getGameState() == 5)
         {
             drawNames(g);
             drawDealer(g);
             drawCards(g);
+        }
+        if (ref.getGameState() == 6)
+        {
+            drawDealtCard(g);
         }
     }
 }

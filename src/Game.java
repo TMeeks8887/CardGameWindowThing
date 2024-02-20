@@ -28,8 +28,8 @@ public class Game {
     {
         players = new ArrayList<Player>();
         numPlayers = 0;
-        String Ranks[] = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"};
-        int Values[] = {2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11};
+        String Ranks[] = {"Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"};
+        int Values[] = {11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10};
         String Suits[] = {"Spades", "Hearts", "Diamonds", "Clubs"};
         wholeDeck = new Deck(Ranks, Suits, Values);
 
@@ -115,6 +115,7 @@ public class Game {
                 resetDeck(wholeDeck);
             }
             name.addCard(wholeDeck.deal());
+            window.repaint();
             System.out.println(name.getCards());
             if (checkIf21(name) == true) {
                 return;
@@ -205,8 +206,8 @@ public class Game {
     // Resets the deck to a full deck
     public void resetDeck(Deck wholeDeck)
     {
-        String Ranks[] = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"};
-        int Values[] = {2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11};
+        String Ranks[] = {"Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"};
+        int Values[] = {11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10};
         String Suits[] = {"Spades", "Hearts", "Diamonds", "Clubs"};
         wholeDeck = new Deck(Ranks, Suits, Values);
     }
