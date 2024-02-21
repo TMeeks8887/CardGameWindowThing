@@ -115,11 +115,13 @@ public class Game {
                 resetDeck(wholeDeck);
             }
             name.addCard(wholeDeck.deal());
-            window.repaint();
             System.out.println(name.getCards());
-            if (checkIf21(name) == true) {
+            if (checkIf21(name) == true)
+            {
+                window.repaint();
                 return;
             }
+            window.repaint();
             askIfHit(name);
         }
     }
@@ -165,14 +167,16 @@ public class Game {
         if (value > 21)
         {
             System.out.println("You busted!");
+            name.setName(name.getName() + " (Busted)");
             return true;
         }
         return false;
     }
 
     // Gets the winner(s)
-    public void getWinner(ArrayList<Player> players)
+    public String getWinner(ArrayList<Player> players)
     {
+        String winners;
         int winnerPoints = 0;
         ArrayList<String> winnerName = new ArrayList<String>();
         for (int i = 0; i < numPlayers + 1; i++)
@@ -195,6 +199,8 @@ public class Game {
         }
         // Prints the winner(s)
         System.out.println("The winner is " + winnerName);
+        winners = ("The winner is " + winnerName);
+        return winners;
     }
 
     // Resets a players hand, gets called in a for-loop to reset all
@@ -210,6 +216,13 @@ public class Game {
         int Values[] = {11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10};
         String Suits[] = {"Spades", "Hearts", "Diamonds", "Clubs"};
         wholeDeck = new Deck(Ranks, Suits, Values);
+    }
+    public void resetNames(Player name)
+    {
+        int lengthBusted = name.getName().length();
+        int originalLength = lengthBusted - 9;
+        String originalName = name.getName().substring(0, originalLength);
+        name.setName(originalName);
     }
 
     public void nextGameState()
@@ -227,7 +240,7 @@ public class Game {
         nextGameState();
     }
     // Plays the game
-    public  void playGame()
+    public void playGame()
     {
         // Game States 0 and 1
         for (int i = 0; i < 2; i++)
@@ -264,9 +277,8 @@ public class Game {
                 // Can get 2 aces, so have to check if they start with 22
                 checkIf21(players.get(i));
             }
-//            window.repaint();
-            // Game state 5
-            gameState++;
+            window.repaint();
+
             printPlayers();
             // Goes through each player to check if they want to hit
             for (int i = 0; i < numPlayers + 1; i++)
@@ -276,16 +288,22 @@ public class Game {
             // Gets winner(s)
             getWinner(players);
             // Checks if they want to keep playing, if they type something other than yes/Yes/y/Y then it ends the game
+            // Game state 5
+            gameState++;
             window.repaint();
-            // Game state 4
-            gameState--;
+
             System.out.println("Do you still want to play?");
             playing = s.nextLine();
             // Goes through each player resetting their hand
             for (int i = 0; i < numPlayers + 1; i++)
             {
+                if (getHandValue(players.get(i)) > 21 )
+                {
+                    resetNames(players.get(i));
+                }
                 resetHands(players.get(i));
             }
+            gameState--;
         }
     }
 

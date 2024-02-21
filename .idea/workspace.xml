@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="63cf9341-c979-47c6-b078-0da7b38c1a4f" name="Changes" comment="got all the photos working, trying to get it so i can repaint after a hit with the new card">
+    <list default="true" id="63cf9341-c979-47c6-b078-0da7b38c1a4f" name="Changes" comment="really close, only need backgrounds, writing if a player busted, and the &quot;do you still want to play?&quot;">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Player.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -153,7 +154,15 @@
       <option name="project" value="LOCAL" />
       <updated>1708390129299</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="really close, only need backgrounds, writing if a player busted, and the &quot;do you still want to play?&quot;">
+      <option name="closed" value="true" />
+      <created>1708462097883</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1708462097883</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -167,6 +176,7 @@
     <MESSAGE value="just got everything showing correctly, need to figure out how to reSize cards, commiting to save" />
     <MESSAGE value="where I'm at right now: displaying large cards, but the wrong ones" />
     <MESSAGE value="got all the photos working, trying to get it so i can repaint after a hit with the new card" />
-    <option name="LAST_COMMIT_MESSAGE" value="got all the photos working, trying to get it so i can repaint after a hit with the new card" />
+    <MESSAGE value="really close, only need backgrounds, writing if a player busted, and the &quot;do you still want to play?&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="really close, only need backgrounds, writing if a player busted, and the &quot;do you still want to play?&quot;" />
   </component>
 </project>

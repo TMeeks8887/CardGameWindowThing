@@ -46,13 +46,9 @@ public class Player {
         return name;
     }
 
-//    public ArrayList<Image> getCardImages(Player name) {
-//        ArrayList<Image> cardImages = new ArrayList<>();
-//        for (Card card : name.getCards()) {
-//            cardImages.add(card.getImageJ());
-//        }
-//        return cardImages;
-//    }
+    public void setName(String name) {
+        this.name = name;
+    }
 
     // Adds a point to the player that wins
     public void addPoints(int addPoints)

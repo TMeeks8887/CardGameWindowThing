@@ -120,7 +120,9 @@ public class GameView extends JFrame
     {
         g.setColor(Color.BLACK);
 
-        g.drawString("Do you still want to play? ", X_OFFSET + 20, Y_OFFSET + 20);
+        String winner = ref.getWinner(ref.getPlayers());
+        g.drawString(winner, X_OFFSET + 20, Y_OFFSET + 20);
+        g.drawString("Do you still want to play?", X_OFFSET + 20, Y_OFFSET + 40);
     }
     public void paint(Graphics g)
     {
@@ -155,6 +157,10 @@ public class GameView extends JFrame
         if (ref.getGameState() == 5)
         {
             drawPlayAgain(g);
+        }
+        if (ref.getGameState() == 6)
+        {
+            drawNamesDealerCard(g);
         }
     }
 }
