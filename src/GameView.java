@@ -15,6 +15,7 @@ public class GameView extends JFrame
             NEW_WIDTH = 40;
 
     private Game ref;
+    private int playerCounter = 0;
     public GameView(Game ref)
     {
         // Backend passed in
@@ -60,11 +61,11 @@ public class GameView extends JFrame
 
         g.drawString("How many players? (1-7)", X_OFFSET + 20, Y_OFFSET + 20);
     }
-    public void drawGetNames(Graphics g)
+    public void drawGetNames(Graphics g, int count)
     {
         g.setColor(Color.BLACK);
 
-        g.drawString("Enter Name: ", X_OFFSET + 20, Y_OFFSET + 20);
+        g.drawString("Enter Name " + count + ": "  , X_OFFSET + 20, Y_OFFSET + 20);
     }
     public void drawNames(Graphics g)
     {
@@ -86,7 +87,6 @@ public class GameView extends JFrame
         // Iterate over each player
         for (int i = 0; i < numPlayers + 1; i++)
         {
-//            ArrayList<Player> players = ref.getPlayers();
             ArrayList<Image> cardImages = ref.getCardImages(i);
                 // Draw each card image for the current player
             for (int j = 0; j < players.get(i).getCards().size() ; j++)
@@ -147,7 +147,8 @@ public class GameView extends JFrame
 
         if (ref.getGameState() == 3)
         {
-            drawGetNames(g);
+            playerCounter++;
+            drawGetNames(g, playerCounter);
         }
         // Draws the player names
         if (ref.getGameState() == 4)
@@ -158,9 +159,9 @@ public class GameView extends JFrame
         {
             drawPlayAgain(g);
         }
-        if (ref.getGameState() == 6)
-        {
-            drawNamesDealerCard(g);
-        }
+//        if (ref.getGameState() == 6)
+//        {
+//            drawNamesDealerCard(g);
+//        }
     }
 }

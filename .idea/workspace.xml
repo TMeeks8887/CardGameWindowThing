@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="63cf9341-c979-47c6-b078-0da7b38c1a4f" name="Changes" comment="really close, only need backgrounds, writing if a player busted, and the &quot;do you still want to play?&quot;">
+    <list default="true" id="63cf9341-c979-47c6-b078-0da7b38c1a4f" name="Changes" comment="All i need is comments, Background, and getting rid of the excess in the terminal that i used for testing">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Player.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -162,7 +161,15 @@
       <option name="project" value="LOCAL" />
       <updated>1708462097883</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="All i need is comments, Background, and getting rid of the excess in the terminal that i used for testing">
+      <option name="closed" value="true" />
+      <created>1708500275033</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1708500275033</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -177,6 +184,7 @@
     <MESSAGE value="where I'm at right now: displaying large cards, but the wrong ones" />
     <MESSAGE value="got all the photos working, trying to get it so i can repaint after a hit with the new card" />
     <MESSAGE value="really close, only need backgrounds, writing if a player busted, and the &quot;do you still want to play?&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="really close, only need backgrounds, writing if a player busted, and the &quot;do you still want to play?&quot;" />
+    <MESSAGE value="All i need is comments, Background, and getting rid of the excess in the terminal that i used for testing" />
+    <option name="LAST_COMMIT_MESSAGE" value="All i need is comments, Background, and getting rid of the excess in the terminal that i used for testing" />
   </component>
 </project>

@@ -70,6 +70,7 @@ public class Game {
         for (int i = 0; i < numPlayers; i++)
         {
             System.out.println("Enter name: ");
+            window.repaint();
             name = s.nextLine(); // Read the player's name
             // Want to add the players to an arraylist to be called on later
             players.add(new Player(name));
@@ -255,9 +256,11 @@ public class Game {
         gameState++;
 
         // Game state 3
-        window.repaint();
 
+//        window.repaint();
         activePlayersEnterName();
+
+
         makeDealer();
 
         gameState++;
