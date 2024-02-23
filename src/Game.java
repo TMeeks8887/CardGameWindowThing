@@ -21,6 +21,7 @@ public class Game {
     private String playing = "yes";
     // Game state for different screen
     private int gameState = 0;
+    private int nameCounter = -1;
     private GameView window;
 
     // Game constructor which creates the deck, and initializes players
@@ -34,6 +35,14 @@ public class Game {
         wholeDeck = new Deck(Ranks, Suits, Values);
 
         this.window = new GameView(this);
+    }
+
+    public int getNameCounter() {
+        return nameCounter;
+    }
+
+    public void setNameCounter(int nameCounter) {
+        this.nameCounter = nameCounter;
     }
 
     public ArrayList<Player> getPlayers()
@@ -106,23 +115,24 @@ public class Game {
     // Repeats until they either bust or don't want to hit anymore
     public void askIfHit(Player name)
     {
-        System.out.println(name);
+        nameCounter++;
+        window.repaint();
         System.out.println("Does " + name.getName() + " want to hit? (put in yes/no or y/n)");
         hit = s.nextLine();
         if (hit.equals("yes") || hit.equals("y"))
         {
             if (wholeDeck.isEmpty())
             {
-                resetDeck(wholeDeck);
+                wholeDeck =  resetDeck(wholeDeck);
             }
             name.addCard(wholeDeck.deal());
-            System.out.println(name.getCards());
             if (checkIf21(name) == true)
             {
                 window.repaint();
                 return;
             }
             window.repaint();
+            nameCounter--;
             askIfHit(name);
         }
     }
@@ -135,17 +145,10 @@ public class Game {
         {
             if (wholeDeck.isEmpty())
             {
-                resetDeck(wholeDeck);
+                wholeDeck = resetDeck(wholeDeck);
             }
             name.addCard(wholeDeck.deal());
         }
-    }
-
-    // Prints the arraylist of players to show everyone's cards
-    public void printPlayers()
-    {
-        System.out.println("The players, their points, and their cards are:");
-        System.out.println(players);
     }
 
     // Gets the value of the players hand and returns it to be used in checkIf21 and getWinner
@@ -200,6 +203,10 @@ public class Game {
         }
         // Prints the winner(s)
         System.out.println("The winner is " + winnerName);
+        if (winnerName.isEmpty())
+        {
+            return "There is no winner";
+        }
         winners = ("The winner is " + winnerName);
         return winners;
     }
@@ -211,12 +218,12 @@ public class Game {
     }
 
     // Resets the deck to a full deck
-    public void resetDeck(Deck wholeDeck)
+    public Deck resetDeck(Deck wholeDeck)
     {
         String Ranks[] = {"Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"};
         int Values[] = {11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10};
         String Suits[] = {"Spades", "Hearts", "Diamonds", "Clubs"};
-        wholeDeck = new Deck(Ranks, Suits, Values);
+        return new Deck(Ranks, Suits, Values);
     }
     public void resetNames(Player name)
     {
@@ -282,7 +289,6 @@ public class Game {
             }
             window.repaint();
 
-            printPlayers();
             // Goes through each player to check if they want to hit
             for (int i = 0; i < numPlayers + 1; i++)
             {
@@ -295,7 +301,7 @@ public class Game {
             gameState++;
             window.repaint();
 
-            System.out.println("Do you still want to play?");
+
             playing = s.nextLine();
             // Goes through each player resetting their hand
             for (int i = 0; i < numPlayers + 1; i++)

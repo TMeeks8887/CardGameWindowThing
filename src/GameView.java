@@ -12,10 +12,12 @@ public class GameView extends JFrame
             X_OFFSET = 20,
             DEALER_X_VAL = 320,
             NEW_HEIGHT = 60,
-            NEW_WIDTH = 40;
+            NEW_WIDTH = 40,
+            ASK_IF_HIT = 350;
 
     private Game ref;
     private int playerCounter = 0;
+
     public GameView(Game ref)
     {
         // Backend passed in
@@ -110,11 +112,17 @@ public class GameView extends JFrame
             g.drawImage(originalImage, cardX, cardY, NEW_WIDTH, NEW_HEIGHT, this);
         }
     }
+    public void drawPlayerTurn (Graphics g, int count)
+    {
+        g.setColor(Color.BLACK);
+        g.drawString("Does " + ref.getPlayerName(count) + " want to hit? (put in yes/no or y/n)", DEALER_X_VAL, ASK_IF_HIT);
+    }
     public void drawNamesDealerCard(Graphics g)
     {
         drawNames(g);
         drawDealer(g);
         drawCards(g);
+        drawPlayerTurn(g, ref.getNameCounter());
     }
     public void drawPlayAgain(Graphics g)
     {
@@ -157,11 +165,8 @@ public class GameView extends JFrame
         }
         if (ref.getGameState() == 5)
         {
+            ref.setNameCounter(-1);
             drawPlayAgain(g);
         }
-//        if (ref.getGameState() == 6)
-//        {
-//            drawNamesDealerCard(g);
-//        }
     }
 }
