@@ -21,10 +21,14 @@ public class Game {
     private String playing = "yes";
     // Game state for different screen
     private int gameState = 0;
+    // Name counter for putting whose turn it is
+    // Sets the nameCounter to -1 because in askIfHit it always starts with counter++ because if the person hits
+    // It does counter-- so that the name doesn't change if the player gets the choice to hit again
     private int nameCounter = -1;
+    // Instance variable for window
     private GameView window;
 
-    // Game constructor which creates the deck, and initializes players
+    // Game constructor which creates the deck, and initializes players, and creates new GameView
     public Game()
     {
         players = new ArrayList<Player>();
@@ -37,21 +41,26 @@ public class Game {
         this.window = new GameView(this);
     }
 
+    // Returns nameCounter to be used in which players turn it is
     public int getNameCounter() {
         return nameCounter;
     }
 
+    // Sets the name counter so that it can be set back to -1 at the reset
     public void setNameCounter(int nameCounter) {
         this.nameCounter = nameCounter;
     }
 
+    // Returns the players to be used when drawing
     public ArrayList<Player> getPlayers()
     {
         return players;
     }
+    // Returns the card images for a player
     public ArrayList<Image> getCardImages(int index)
     {
         ArrayList<Image> playerCardImages = new ArrayList<>();
+        // Goes through however many cards in the players hand so that it can add them to an arraylist to return
         for (int i = 0; i < players.get(index).getCards().size(); i++)
         {
             playerCardImages.add(players.get(index).getCards().get(i).getImageJ());
@@ -59,6 +68,7 @@ public class Game {
         return playerCardImages;
     }
 
+    // Returns the players name to be used in drawing player names on screem
     public String getPlayerName(int index)
     {
         return players.get(index).getName();
@@ -73,12 +83,14 @@ public class Game {
             numPlayers = s.nextInt();
         }
     }
+    // Prompts the user to enter name for howver many players they want
     public void activePlayersEnterName()
     {
         String name;
         for (int i = 0; i < numPlayers; i++)
         {
             System.out.println("Enter name: ");
+            // Repaints so that it updates screen each time
             window.repaint();
             name = s.nextLine(); // Read the player's name
             // Want to add the players to an arraylist to be called on later
@@ -92,45 +104,39 @@ public class Game {
         players.add(new Player("dealer"));
     }
 
+    // Reutrns the number of players to be used in drawing the boards
     public int getNumPlayers() {
         return numPlayers;
-    }
-
-    // Prints the instructions
-    public void printInstructions()
-    {
-        System.out.println("Hello! ");
-        System.out.println("Thank you for playing BlackJack!");
-        System.out.println("Rules: ");
-        System.out.println("Try to get as close to 21 without hitting it as you can");
-        System.out.println("Each card's value is it's number, face cards are 10, and Ace is 11");
-        System.out.println("Person playing as dealer should only hit if they have 16 or below");
-        System.out.println("The person closest to 21 wins!");
-        System.out.println("If there are multiple people that are the closest, there are multiple winners");
-        System.out.println("Each time you win a round you gain 1 point");
-        System.out.println("The person with the most points once you decide to end wins the whole thing.");
     }
 
     // Asks if the player wants to hit, if they do it first checks if there's a card, then adds the card to their hand
     // Repeats until they either bust or don't want to hit anymore
     public void askIfHit(Player name)
     {
+        // NameCounter++ becuase if the player hits and can play again it has -- so it goes back to even
+        // It also changes it to display the next player once called from outside again
         nameCounter++;
+        // Display the updated screen
         window.repaint();
+        // Prompts in terminal as well
         System.out.println("Does " + name.getName() + " want to hit? (put in yes/no or y/n)");
         hit = s.nextLine();
         if (hit.equals("yes") || hit.equals("y"))
         {
+            // Resets deck if empty
             if (wholeDeck.isEmpty())
             {
                 wholeDeck =  resetDeck(wholeDeck);
             }
+            // Deals
             name.addCard(wholeDeck.deal());
             if (checkIf21(name) == true)
             {
+                // Refreshes screen if busted
                 window.repaint();
                 return;
             }
+            // Refreshes screen with added card
             window.repaint();
             nameCounter--;
             askIfHit(name);
@@ -171,6 +177,7 @@ public class Game {
         if (value > 21)
         {
             System.out.println("You busted!");
+            // Sets their name to have " (Busted)" at the end to show the user if they have busted
             name.setName(name.getName() + " (Busted)");
             return true;
         }
@@ -201,7 +208,7 @@ public class Game {
                 players.get(i).addPoints(1);
             }
         }
-        // Prints the winner(s)
+        // Returns the winner(s)
         if (winnerName.isEmpty())
         {
             return "There is no winner";
@@ -224,14 +231,16 @@ public class Game {
         String Suits[] = {"Spades", "Hearts", "Diamonds", "Clubs"};
         return new Deck(Ranks, Suits, Values);
     }
+    // Resets the names to remove the (busted) if they had busted
     public void resetNames(Player name)
     {
         int lengthBusted = name.getName().length();
+        // lengthBusted - 9 because what was added was 9 long
         int originalLength = lengthBusted - 9;
         String originalName = name.getName().substring(0, originalLength);
         name.setName(originalName);
     }
-
+    // First two prompts asking if you are done reading, if you are then the gameState increases
     public void nextGameState()
     {
         System.out.println("Done with this screen? (yes/y)");
@@ -241,6 +250,7 @@ public class Game {
             gameState++;
         }
     }
+    // Repaints and prompts the nextGameState call
     public void goThroughGameState()
     {
         window.repaint();
@@ -262,10 +272,7 @@ public class Game {
         gameState++;
 
         // Game state 3
-
-//        window.repaint();
         activePlayersEnterName();
-
 
         makeDealer();
 
@@ -306,16 +313,19 @@ public class Game {
             // Goes through each player resetting their hand
             for (int i = 0; i < numPlayers + 1; i++)
             {
+                // If the player busted then it resets their name
                 if (getHandValue(players.get(i)) > 21 )
                 {
                     resetNames(players.get(i));
                 }
                 resetHands(players.get(i));
             }
+            // Back down to game state 4
             gameState--;
         }
     }
 
+    // Returns gameState
     public int getGameState()
     {
         return gameState;

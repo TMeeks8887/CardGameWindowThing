@@ -144,7 +144,7 @@ public class GameView extends JFrame
         g.setColor(Color.BLACK);
         g.drawString("Does " + ref.getPlayerName(count) + " want to hit? (put in yes/no or y/n)", DEALER_X_VAL, ASK_IF_HIT);
     }
-    // Draws all of the names, cards, and whose turn it is to hit
+    // Draws all the names, cards, and whose turn it is to hit
     public void drawNamesDealerCard(Graphics g)
     {
         drawNames(g);
