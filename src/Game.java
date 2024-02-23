@@ -1,5 +1,5 @@
 // Teddy Meeks
-// December 9th
+// February 22
 
 // Importing scanner and arrayList
 import java.util.Scanner;
@@ -202,7 +202,6 @@ public class Game {
             }
         }
         // Prints the winner(s)
-        System.out.println("The winner is " + winnerName);
         if (winnerName.isEmpty())
         {
             return "There is no winner";
@@ -296,6 +295,7 @@ public class Game {
             }
             // Gets winner(s)
             getWinner(players);
+            System.out.println("Do you still want to play? (yes/y)");
             // Checks if they want to keep playing, if they type something other than yes/Yes/y/Y then it ends the game
             // Game state 5
             gameState++;
